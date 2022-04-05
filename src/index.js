@@ -1,18 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import { Provider } from 'react-redux';
+import { HashRouter } from 'react-router-dom';
 import store from './Redux/store';
 import App from './App';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <BrowserRouter>
+  <HashRouter>
     <Provider store={ store }>
       <App />
     </Provider>
-  </BrowserRouter>,
+  </HashRouter>,
   document.getElementById('root'),
 );
 
