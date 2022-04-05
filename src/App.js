@@ -1,3 +1,4 @@
+import { Switch, Route } from 'react-router-dom';
 import React from 'react';
 import logo from './trivia.png';
 import './App.css';
@@ -11,7 +12,9 @@ export default function App() {
         <p>
           SUA VEZ
         </p>
-        <Login />
+        <Switch>
+          <Route exact path="/" component={ Login } />
+        </Switch>
       </header>
     </div>
   );

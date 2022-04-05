@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { getToken } from '../Redux/actions';
 
-export default function Login() {
+export default function Login(props) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [isDisable, setIsDisable] = useState(true);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (name.length > 0 && email.length > 0) {
@@ -11,8 +15,18 @@ export default function Login() {
     } else {
       setIsDisable(true);
     }
-    console.log('aqui');
   }, [name, email]);
+
+  const token = useSelector((state) => state.token);
+  useEffect(() => {
+    console.log(token);
+  }, [token]);
+  async function handleBtmclick() {
+    dispatch(getToken());
+    const { history: { push } } = props;
+    push('/game');
+  }
+
   return (
     <div>
       <label htmlFor="login-name">
@@ -39,8 +53,15 @@ export default function Login() {
         data-testid="btn-play"
         disabled={ isDisable }
         type="button"
+        onClick={ handleBtmclick }
       >
         Play
       </button>
     </div>);
 }
+
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
