@@ -12,3 +12,5 @@ const token = (state = INITIAL_STATE, action) => {
 };
 
 export default token;
+
+// comentario
