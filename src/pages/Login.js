@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { getToken } from '../Redux/actions';
+import { useDispatch } from 'react-redux';
+import { actionGravatarImage, actionPlayer, getToken } from '../Redux/actions';
 
 export default function Login(props) {
   const [name, setName] = useState('');
@@ -16,14 +16,10 @@ export default function Login(props) {
       setIsDisable(true);
     }
   }, [name, email]);
-
-  const token = useSelector((state) => state.token);
-  useEffect(() => {
-    console.log(token);
-  }, [token]);
-
-  async function handleBtnclick() {
+  async function handleBtmclick() {
     dispatch(getToken());
+    dispatch(actionPlayer({ name, email }));
+    dispatch(actionGravatarImage(email));
     const { history: { push } } = props;
     push('/game');
   }
