@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-  name: 'teste',
+  name: '',
   assertions: '',
   score: 0,
   gravatarEmail: '',
