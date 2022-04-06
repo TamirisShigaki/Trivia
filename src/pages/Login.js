@@ -21,10 +21,16 @@ export default function Login(props) {
   useEffect(() => {
     console.log(token);
   }, [token]);
-  async function handleBtmclick() {
+
+  async function handleBtnclick() {
     dispatch(getToken());
     const { history: { push } } = props;
     push('/game');
+  }
+
+  function handleBtnSettings() {
+    const { history: { push } } = props;
+    push('/settings');
   }
 
   return (
@@ -53,9 +59,17 @@ export default function Login(props) {
         data-testid="btn-play"
         disabled={ isDisable }
         type="button"
-        onClick={ handleBtmclick }
+        onClick={ handleBtnclick }
       >
         Play
+      </button>
+
+      <button
+        data-testid="btn-settings"
+        type="button"
+        onClick={ handleBtnSettings }
+      >
+        Settings
       </button>
     </div>);
 }
