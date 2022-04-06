@@ -1,3 +1,4 @@
+import md5 from 'crypto-js/md5';
 import store from '../store';
 
 export const actionPlayer = (value) => ({
@@ -19,6 +20,14 @@ export const actionQuestion = (value) => ({
   type: 'QUESTION_ACTION',
   value,
 });
+
+export const actionGravatarImage = (email) => {
+  const emailHash = md5(email).toString();
+  const image = `https://www.gravatar.com/avatar/${emailHash}`;
+  return { type: 'GRAVATAR_IMAGE', value: image };
+};
+
+actionGravatarImage('teste');
 
 export const getToken = () => async (dispatch) => {
   const request = await fetch('https://opentdb.com/api_token.php?command=request');

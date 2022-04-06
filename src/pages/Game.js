@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Questions from '../component/Questions';
+import GameHeader from '../components/GameHeader';
 
 export default function Game() {
   return (
     <div>
       GAME
-      <Questions />
+     <GameHeader />
+      <Questions />      
     </div>);
 }
 
