@@ -1,73 +1,72 @@
 // import React from 'react';
-// import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { getQuestion } from '../Redux/actions';
 
-// export default function Questions() {
+export default function Questions() {
+  const dispatch = useDispatch();
+  useEffect(() => { // Efeito similar ao ComponentDidMount
+    
+    dispatch(getQuestion());
 
-//   const token = useSelector((state) => state.token);
-//   useEffect(() => {
-//     console.log(token);
-//   }, [token]);
-//   return (
-//     <div>
-//       <h4
-//         data-testid="question-category"
-//       >
-//         Category
-//       </h4>
-//       <p
-//         data-testid="question-text"
-//       >
-//         Text
-//       </p>
-//       <div
-//         data-testid="answer-options"
-//       >
-//         <button
-//           data-testid="btn-play"
-//           type="button"
-//         /* onClick={ handleBtmclick } */
-//         >
-//           Answer 1
-//         </button>
-//         <button
-//           data-testid="btn-play"
-//           type="button"
-//         /* onClick={ handleBtmclick } */
-//         >
-//           Answer 2
-//         </button>
-//         <button
-//           data-testid="btn-play"
-//           type="button"
-//         /* onClick={ handleBtmclick } */
-//         >
-//           Answer 3
-//         </button>
-//         <button
-//           data-testid="btn-play"
-//           type="button"
-//         /* onClick={ handleBtmclick } */
-//         >
-//           Answer 4
-//         </button>
-//         <button
-//           data-testid="btn-play"
-//           type="button"
-//         /* onClick={ handleBtmclick } */
-//         >
-//           Answer 5
-//         </button>
-//       </div>
-//     </div>
-//   );
-// }
+  }, []);
 
-import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { getToken, getQuestion } from '../Redux/actions';
+  return (
+    <div>
+      <h4
+        data-testid="question-category"
+      >
+        Category
+      </h4>
+      <p
+        data-testid="question-text"
+      >
+        Text
+      </p>
+      <div
+        data-testid="answer-options"
+      >
+        <button
+          data-testid="btn-play"
+          type="button"
+        /* onClick={ handleBtmclick } */
+        >
+          Answer 1
+        </button>
+        <button
+          data-testid="btn-play"
+          type="button"
+        /* onClick={ handleBtmclick } */
+        >
+          Answer 2
+        </button>
+        <button
+          data-testid="btn-play"
+          type="button"
+        /* onClick={ handleBtmclick } */
+        >
+          Answer 3
+        </button>
+        <button
+          data-testid="btn-play"
+          type="button"
+        /* onClick={ handleBtmclick } */
+        >
+          Answer 4
+        </button>
+        <button
+          data-testid="btn-play"
+          type="button"
+        /* onClick={ handleBtmclick } */
+        >
+          Answer 5
+        </button>
+      </div>
+    </div>
+  );
+}
 
-class Questions extends React.Component {
+/* class Questions extends React.Component {
   constructor() {
     super();
 
@@ -75,13 +74,6 @@ class Questions extends React.Component {
       game: [],
       counter: 0,
     };
-  }
-
-  componentDidMount(preview) {
-    const { token } = this.props;
-    if (token !== preview.token) {
-      this.getToken();
-    }
   }
 
   handleGame = async () => {
@@ -113,10 +105,10 @@ class Questions extends React.Component {
           { game.length > 0 && game[counter].category }
         </h1>
         <h2 data-testid="question-text">
-        { game.length > 0 && game[counter].question }
+          { game.length > 0 && game[counter].question }
         </h2>
       </div>
-    )
+    );
   }
 }
 
@@ -124,12 +116,13 @@ const mapStateToProps = (state) => ({
   token: state.token,
 });
 
-const mapDispachToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => ({
   apiGetToken: () => dispatch(getQuestion()),
 });
 
-export default connect(mapStateToProps, mapDispachToProps)(Questions);
+export default connect(mapStateToProps, mapDispatchToProps)(Questions);
 
 Questions.propTypes = {
   token: PropTypes.string,
 }.isRequired;
+ */
