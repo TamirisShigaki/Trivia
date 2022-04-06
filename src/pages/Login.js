@@ -24,6 +24,11 @@ export default function Login(props) {
     push('/game');
   }
 
+  function handleBtnSettings() {
+    const { history: { push } } = props;
+    push('/settings');
+  }
+
   return (
     <div>
       <label htmlFor="login-name">
@@ -50,9 +55,17 @@ export default function Login(props) {
         data-testid="btn-play"
         disabled={ isDisable }
         type="button"
-        onClick={ handleBtmclick }
+        onClick={ handleBtnclick }
       >
         Play
+      </button>
+
+      <button
+        data-testid="btn-settings"
+        type="button"
+        onClick={ handleBtnSettings }
+      >
+        Settings
       </button>
     </div>);
 }
