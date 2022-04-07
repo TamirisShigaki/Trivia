@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import './ButtonAnswer.css';
 
 export default function ButtonAnswers(props) {
   console.log(props, 'props');
   const { answers, correctAnswers } = props;
   const magicNumber = 0.5;
-  const randomAnswers = [...answers];
-  randomAnswers.sort(() => (Math.random() - magicNumber));
+  const [randomAnswers, setRandomAnswers] = useState([...answers]
+    .sort(() => (Math.random() - magicNumber)));
+  const [classArray, setClassArray] = useState(['', '', '', '']);
+
+  useEffect(() => {
+    setRandomAnswers([...answers]
+      .sort(() => (Math.random() - magicNumber)));
+    setClassArray(['', '', '', '']);
+  }, [answers]);
+
   function createIndex() {
     const indexArray = [];
     let counter = 0;
@@ -20,7 +29,20 @@ export default function ButtonAnswers(props) {
     });
     return indexArray;
   }
+
   const indexArray = createIndex();
+
+  function setColor() {
+    const buttonColor = indexArray.map((element) => {
+      if (element === 'correct-answer') {
+        return 'green';
+      }
+      return 'red';
+    });
+    console.log('button', buttonColor);
+    setClassArray(buttonColor);
+  }
+
   return (
     <div data-testid="answer-options">
       {
@@ -29,6 +51,8 @@ export default function ButtonAnswers(props) {
             key={ ind }
             type="button"
             data-testid={ indexArray[ind] }
+            onClick={ () => setColor() }
+            className={ classArray[ind] }
           >
             { element }
           </button>
