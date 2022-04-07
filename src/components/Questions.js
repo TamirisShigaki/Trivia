@@ -1,8 +1,9 @@
 // import React from 'react';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getQuestion, getToken } from '../Redux/actions';
+import { actionAnswers, getQuestion, getToken } from '../Redux/actions';
 import ButtonAnswers from './ButtonAnswers';
+import Timer from './Timer';
 
 export default function Questions() {
   const dispatch = useDispatch();
@@ -11,7 +12,6 @@ export default function Questions() {
   const [questions, setQuestions] = useState([]);
   const [question, setQuestion] = useState({});
   const [position, setPosition] = useState(0);
-  console.log(questions, 'aqui');
 
   useEffect(() => { // Efeito similar ao ComponentDidMount
     dispatch(getQuestion());
@@ -32,7 +32,6 @@ export default function Questions() {
       setQuestion(questions[0]);
     }
   }, [questions]);
-  console.log(question);
 
   function nextQuestion() {
     setQuestion(questions[position]);
@@ -48,11 +47,17 @@ export default function Questions() {
     }
     return false;
   }
-
+  useEffect(() => {
+    if (question && question.category) {
+      dispatch(actionAnswers([...question.incorrect_answers,
+        question.correct_answer], question.correct_answer));
+    }
+  }, [question, dispatch]);
   return (
     <div>
       {teste() && (
         <>
+          <Timer />
           <h4
             data-testid="question-category"
           >
@@ -63,11 +68,7 @@ export default function Questions() {
           >
             {question.question}
           </p>
-          <ButtonAnswers
-            answers={ [...question.incorrect_answers,
-              question.correct_answer] }
-            correctAnswers={ question.correct_answer }
-          />
+          <ButtonAnswers />
         </>
       )}
 

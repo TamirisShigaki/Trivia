@@ -5,7 +5,6 @@ import './App.css';
 import Login from './pages/Login';
 import Game from './pages/Game';
 import Settings from './pages/Settings';
-import Timer from './components/Timer';
 
 export default function App() {
   return (
@@ -15,7 +14,6 @@ export default function App() {
         <p>
           SUA VEZ
         </p>
-        <Timer />
         <Switch>
           <Route exact path="/" component={ Login } />
           <Route exact path="/game" component={ Game } />

@@ -26,6 +26,17 @@ export const actionTimerRuning = (value) => ({
   value,
 });
 
+export const actionAnswers = (answers, correct) => ({
+  type: 'ANSWER',
+  answers,
+  correct,
+});
+
+export const actionDisabledAnswers = (value) => ({
+  type: 'DISABLED_AWNSWERS',
+  value,
+});
+
 export const actionGravatarImage = (email) => {
   const emailHash = md5(email).toString();
   const image = `https://www.gravatar.com/avatar/${emailHash}`;
