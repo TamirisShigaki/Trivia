@@ -32,11 +32,11 @@ actionGravatarImage('teste');
 export const getToken = () => async (dispatch) => {
   const request = await fetch('https://opentdb.com/api_token.php?command=request');
   const requestJsonToken = await request.json();
-  dispatch(actionToken(requestJsonToken));
+  dispatch(actionToken(requestJsonToken.token));
 };
 
 export const getQuestion = () => async (dispatch) => {
-  const { token } = store.getState().token;
+  const { token } = store.getState();
   const request = await fetch(`https://opentdb.com/api.php?amount=5&token=${token}`);
   const requestJsonQuestion = await request.json();
   dispatch(actionQuestion(requestJsonQuestion));

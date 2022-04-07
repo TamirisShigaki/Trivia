@@ -16,7 +16,7 @@ export default function Login(props) {
       setIsDisable(true);
     }
   }, [name, email]);
-  async function handleBtmclick() {
+  async function handleBtnPlay() {
     dispatch(getToken());
     dispatch(actionPlayer({ name, email }));
     dispatch(actionGravatarImage(email));
@@ -55,7 +55,7 @@ export default function Login(props) {
         data-testid="btn-play"
         disabled={ isDisable }
         type="button"
-        onClick={ handleBtnclick }
+        onClick={ handleBtnPlay }
       >
         Play
       </button>
