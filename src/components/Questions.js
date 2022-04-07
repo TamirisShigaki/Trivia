@@ -73,6 +73,7 @@ export default function Questions() {
 
       <button
         type="button"
+        data-testid="btn-next"
         onClick={ nextQuestion }
       >
         Next Question
