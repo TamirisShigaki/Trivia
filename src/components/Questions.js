@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getQuestion, getToken } from '../Redux/actions';
+import ButtonAnswers from './ButtonAnswers';
 
 export default function Questions() {
   const dispatch = useDispatch();
@@ -10,7 +11,6 @@ export default function Questions() {
   const [questions, setQuestions] = useState([]);
   const [question, setQuestion] = useState({});
   const [position, setPosition] = useState(0);
-
   console.log(questions, 'aqui');
 
   useEffect(() => { // Efeito similar ao ComponentDidMount
@@ -39,11 +39,19 @@ export default function Questions() {
     setPosition(position + 1);
   }
 
-  const magicNumber = 0.5;
+  function teste() {
+    if (question) {
+      if (question.category) {
+        return true;
+      }
+      return false;
+    }
+    return false;
+  }
 
   return (
     <div>
-      {question && (
+      {teste() && (
         <>
           <h4
             data-testid="question-category"
@@ -55,26 +63,20 @@ export default function Questions() {
           >
             {question.question}
           </p>
+          <ButtonAnswers
+            answers={ [...question.incorrect_answers,
+              question.correct_answer] }
+            correctAnswers={ question.correct_answer }
+          />
         </>
       )}
 
-      {question.type === 'multiple' && [...question.incorrect_answers,
-      question.correct_answer].sort(() => (Math.random() - magicNumber))
-        .map((element, index) =>
-          <button
-            data-testid="btn-play"
-            type="button"
-          /* onClick={ handleBtmclick } */
-          >
-            Answer 1
-          </button>
-        )
-        (
-          <div
-            data-testid="answer-options"
-          >
-        )}
+      <button
+        type="button"
+        onClick={ nextQuestion }
+      >
+        Next Question
+      </button>
     </div>
-    // https://javascript.info/task/shuffle  = MathRandom()
   );
 }
