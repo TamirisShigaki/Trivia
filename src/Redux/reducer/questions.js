@@ -7,7 +7,6 @@ const questions = (state = INITIAL_STATE, action) => {
   case 'QUESTION_ACTION':
 
     return { ...state, questions: action.value };
-
   default:
     return state;
   }
