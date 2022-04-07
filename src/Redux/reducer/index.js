@@ -4,6 +4,7 @@ import token from './token';
 import ranking from './ranking';
 import questions from './questions';
 import answers from './answers';
+import timer from './timer';
 
 const rootReducer = combineReducers({
   player,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   ranking,
   questions,
   answers,
+  timer,
 });
 
 export default rootReducer;

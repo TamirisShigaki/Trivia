@@ -26,6 +26,14 @@ export const actionTimerRuning = (value) => ({
   value,
 });
 
+export const actionSetTimerId = (value) => ({
+  type: 'TIMER_ID',
+  value,
+});
+
+export const actionTimer = () => ({
+  type: 'TIMER',
+});
 export const actionAnswers = (answers, correct) => ({
   type: 'ANSWER',
   answers,

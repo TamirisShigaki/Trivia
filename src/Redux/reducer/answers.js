@@ -2,6 +2,7 @@ const INITIAL_STATE = {
   correct: '',
   answers: [],
   disabledBtn: false,
+  newAnswer: false,
 };
 
 const token = (state = INITIAL_STATE, action) => {
