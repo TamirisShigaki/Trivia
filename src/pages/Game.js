@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Questions from '../components/Questions';
 import GameHeader from '../components/GameHeader';
+import Feedback from './Feedback';
 
 export default function Game() {
   return (
@@ -9,6 +10,7 @@ export default function Game() {
       GAME
       <GameHeader />
       <Questions />
+      <Feedback />
     </div>);
 }
 
