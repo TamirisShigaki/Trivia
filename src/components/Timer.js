@@ -1,27 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionDisabledAnswers, actionSetTimerId, actionTimer } from '../Redux/actions';
 
 export default function Timer() {
-  const { time } = useSelector((state) => state.timer); // userSelector pusa a informação do estado
-  const [intervalId, setIntervalId] = useState(undefined);
+  const { time, timerId } = useSelector((state) => state.timer); // userSelector puxa a informação do estado global
   const dispatch = useDispatch();
   useEffect(() => {
-    if (intervalId === undefined) { // evita multiplos setInterval
+    if (timerId === undefined) { // evita multiplos setInterval
       const second = 1000;
       const interval = setInterval(() => {
         dispatch(actionTimer());
       }, second);
       dispatch(actionSetTimerId(interval));
-      setIntervalId(interval);
     }
-  }, [setIntervalId, intervalId, dispatch]);
+  }, [timerId, dispatch]);
 
   useEffect(() => {
     if (time < 1) {
-      clearInterval(intervalId);
+      clearInterval(timerId);
     }
-  }, [time, intervalId]);
+  }, [time, timerId]);
 
   useEffect(() => {
     if (time === 0) {

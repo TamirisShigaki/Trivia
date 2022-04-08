@@ -1,7 +1,8 @@
 // import React from 'react';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { actionAnswers, getQuestion, getToken } from '../Redux/actions';
+import { actionAnswers, getQuestion,
+  getToken, actionTimerRuning, actionSetTimerId } from '../Redux/actions';
 import ButtonAnswers from './ButtonAnswers';
 import Timer from './Timer';
 
@@ -12,6 +13,7 @@ export default function Questions() {
   const [questions, setQuestions] = useState([]);
   const [question, setQuestion] = useState({});
   const [position, setPosition] = useState(0);
+  const [hasClick, setHasClick] = useState(false);
 
   useEffect(() => { // Efeito similar ao ComponentDidMount
     dispatch(getQuestion());
@@ -36,6 +38,9 @@ export default function Questions() {
   function nextQuestion() {
     setQuestion(questions[position]);
     setPosition(position + 1);
+    setHasClick(false);
+    dispatch(actionTimerRuning(true));
+    dispatch(actionSetTimerId(undefined));
   }
 
   function teste() {
@@ -68,17 +73,21 @@ export default function Questions() {
           >
             {question.question}
           </p>
-          <ButtonAnswers />
+          <ButtonAnswers setHasClick={ setHasClick } />
         </>
       )}
 
-      <button
-        type="button"
-        data-testid="btn-next"
-        onClick={ nextQuestion }
-      >
-        Next Question
-      </button>
+      {
+        hasClick && (
+          <button
+            type="button"
+            data-testid="btn-next"
+            onClick={ nextQuestion }
+          >
+            Next Question
+          </button>
+        )
+      }
     </div>
   );
 }

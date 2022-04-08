@@ -4,8 +4,10 @@ import './ButtonAnswer.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionTimerRuning } from '../Redux/actions';
 
-export default function ButtonAnswers() {
+export default function ButtonAnswers(props) {
   const { answers, correct, disabledBtn } = useSelector((state) => state.answers);
+  const { timerId } = useSelector((state) => state.timer);
+  const { setHasClick } = props;
   const [classArray, setClassArray] = useState(['', '', '', '']);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -36,6 +38,8 @@ export default function ButtonAnswers() {
       return 'red';
     });
     setClassArray(buttonColor);
+    setHasClick(true);
+    clearInterval(timerId);
   }
 
   return (
