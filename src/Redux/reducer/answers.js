@@ -3,6 +3,7 @@ const INITIAL_STATE = {
   answers: [],
   disabledBtn: false,
   newAnswer: false,
+  answer: false,
 };
 
 const answer = (state = INITIAL_STATE, action) => {
