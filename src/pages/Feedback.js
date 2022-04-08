@@ -12,9 +12,7 @@ export default function Feedback() {
   // }
 
   return (
-    
     <div>
-
       <header>
         <img
           data-testid="header-profile-picture"
@@ -36,15 +34,17 @@ export default function Feedback() {
         <p data-testid="feedback-total-question">{}</p>
       </section>
       <section />
-       <Link to="/ranking">
-      <button
-        type="button"
-        data-testid="btn-ranking"
+
+      <Link to="/ranking">
+        <button
+          type="button"
+          data-testid="btn-ranking"
         // onClick={ handleBtnRanking }
-      >
-        Ranking
-      </button>
-    </Link>
+        >
+          Ranking
+        </button>
+      </Link>
+
       <Link to="/">
         <button
           type="button"
@@ -54,6 +54,7 @@ export default function Feedback() {
           Play Again
         </button>
       </Link>
+
     </div>
   );
 }
