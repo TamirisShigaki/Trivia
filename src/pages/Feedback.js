@@ -1,11 +1,20 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+// import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export default function Feedback() {
   const { name, score, gravatarImage } = useSelector((state) => state.player);
+
+  // function handleBtnRanking() {
+  //   const { history: { push } } = props;
+  //   push('/ranking');
+  // }
+
   return (
+    
     <div>
+
       <header>
         <img
           data-testid="header-profile-picture"
@@ -15,6 +24,7 @@ export default function Feedback() {
         <span data-testid="header-player-name">{name}</span>
         <span data-testid="header-score">{score}</span>
       </header>
+
       <section>
         <h2>
           Placar final:
@@ -26,6 +36,15 @@ export default function Feedback() {
         <p data-testid="feedback-total-question">{}</p>
       </section>
       <section />
+       <Link to="/ranking">
+      <button
+        type="button"
+        data-testid="btn-ranking"
+        // onClick={ handleBtnRanking }
+      >
+        Ranking
+      </button>
+    </Link>
       <Link to="/">
         <button
           type="button"
@@ -38,3 +57,9 @@ export default function Feedback() {
     </div>
   );
 }
+
+// Feedback.propTypes = {
+//   history: PropTypes.shape({
+//     push: PropTypes.func,
+//   }),
+// }.isRequired;

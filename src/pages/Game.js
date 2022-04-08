@@ -4,6 +4,9 @@ import Questions from '../components/Questions';
 import GameHeader from '../components/GameHeader';
 import Feedback from './Feedback';
 
+import Ranking from './Ranking';
+
+
 export default function Game() {
   return (
     <div>
@@ -11,6 +14,9 @@ export default function Game() {
       <GameHeader />
       <Questions />
       <Feedback />
+
+    <Ranking />
+
     </div>);
 }
 
