@@ -1,7 +1,8 @@
 // import React from 'react';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { actionAnswers, getQuestion, getToken } from '../Redux/actions';
+import { actionAnswers, getQuestion,
+  getToken, actionTimerRuning, actionSetTimerId } from '../Redux/actions';
 import ButtonAnswers from './ButtonAnswers';
 import Timer from './Timer';
 
@@ -12,13 +13,14 @@ export default function Questions() {
   const [questions, setQuestions] = useState([]);
   const [question, setQuestion] = useState({});
   const [position, setPosition] = useState(0);
+  const [hasClick, setHasClick] = useState(false);
 
   useEffect(() => { // Efeito similar ao ComponentDidMount
     dispatch(getQuestion());
   }, [dispatch]);
 
   useEffect(() => {
-    const magicNumber = 3;
+    const magicNumber = 3; // verifica se o token está valido
     if (questionsReducer.response_code === magicNumber) {
       dispatch(getToken());
     } else {
@@ -36,9 +38,19 @@ export default function Questions() {
   function nextQuestion() {
     setQuestion(questions[position]);
     setPosition(position + 1);
+    setHasClick(false);
+    dispatch(actionTimerRuning(true));
+    dispatch(actionSetTimerId(undefined));
   }
 
-  function teste() {
+  useEffect(() => {
+    if (question && question.category) {
+      dispatch(actionAnswers([...question.incorrect_answers,
+        question.correct_answer], question.correct_answer));
+    }
+  }, [question, dispatch]);
+
+  /*   function teste() {
     if (question) {
       if (question.category) {
         return true;
@@ -46,16 +58,11 @@ export default function Questions() {
       return false;
     }
     return false;
-  }
-  useEffect(() => {
-    if (question && question.category) {
-      dispatch(actionAnswers([...question.incorrect_answers,
-        question.correct_answer], question.correct_answer));
-    }
-  }, [question, dispatch]);
+  } */
+
   return (
     <div>
-      {teste() && (
+      {question && question.category && (
         <>
           <Timer />
           <h4
@@ -68,17 +75,21 @@ export default function Questions() {
           >
             {question.question}
           </p>
-          <ButtonAnswers />
+          <ButtonAnswers setHasClick={ setHasClick } />
         </>
       )}
 
-      <button
-        type="button"
-        data-testid="btn-next"
-        onClick={ nextQuestion }
-      >
-        Next Question
-      </button>
+      {
+        hasClick && (
+          <button
+            type="button"
+            data-testid="btn-next"
+            onClick={ nextQuestion }
+          >
+            Next Question
+          </button>
+        )
+      }
     </div>
   );
 }
