@@ -1,6 +1,7 @@
 // import React from 'react';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { actionAnswers, getQuestion,
   getToken, actionTimerRuning, actionSetTimerId } from '../Redux/actions';
 import ButtonAnswers from './ButtonAnswers';
@@ -59,6 +60,7 @@ export default function Questions() {
     }
     return false;
   } */
+  const magicNumber5 = 5;
 
   return (
     <div>
@@ -75,12 +77,12 @@ export default function Questions() {
           >
             {question.question}
           </p>
-          <ButtonAnswers setHasClick={ setHasClick } />
+          <ButtonAnswers difficulty={ question.difficulty } setHasClick={ setHasClick } />
         </>
       )}
 
       {
-        hasClick && (
+        (hasClick && position < magicNumber5) && (
           <button
             type="button"
             data-testid="btn-next"
@@ -88,6 +90,19 @@ export default function Questions() {
           >
             Next Question
           </button>
+        )
+      }
+      {
+        (hasClick && position === magicNumber5) && (
+          <Link to="/settings">
+            <button
+              type="button"
+              data-testid="btn-next"
+              onClick={ nextQuestion }
+            >
+              Next Question
+            </button>
+          </Link>
         )
       }
     </div>
