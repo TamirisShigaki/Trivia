@@ -6,7 +6,6 @@ import Feedback from './Feedback';
 
 import Ranking from './Ranking';
 
-
 export default function Game() {
   return (
     <div>
@@ -14,9 +13,7 @@ export default function Game() {
       <GameHeader />
       <Questions />
       <Feedback />
-
-    <Ranking />
-
+      <Ranking />
     </div>);
 }
 
