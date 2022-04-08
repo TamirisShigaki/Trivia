@@ -16,6 +16,8 @@ const player = (state = INITIAL_STATE, action) => {
     };
   case 'GRAVATAR_IMAGE':
     return { ...state, gravatarImage: action.value };
+  case 'ADD_SCORE':
+    return { ...state, score: state.score + action.value };
   default:
     return state;
   }

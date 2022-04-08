@@ -6,6 +6,11 @@ export const actionPlayer = (value) => ({
   value,
 });
 
+export const actionAddScore = (value) => ({
+  type: 'ADD_SCORE',
+  value,
+});
+
 export const actionToken = (value) => ({
   type: 'TOKEN_REQUEST',
   value,

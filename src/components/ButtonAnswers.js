@@ -2,17 +2,20 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './ButtonAnswer.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { actionTimerRuning } from '../Redux/actions';
+import { actionAddScore,
+  actionDisabledAnswers, actionTimerRuning } from '../Redux/actions';
 
 export default function ButtonAnswers(props) {
   const { answers, correct, disabledBtn } = useSelector((state) => state.answers);
-  const { timerId } = useSelector((state) => state.timer);
-  const { setHasClick } = props;
+  const { timerId, time, timerRunning } = useSelector((state) => state.timer);
+  const { setHasClick, difficulty } = props;
+  const correcAnswer = 'correct-answer';
   const [classArray, setClassArray] = useState(['', '', '', '']);
   const dispatch = useDispatch();
   useEffect(() => {
     setClassArray(['', '', '', '']);
-  }, [answers]);
+    dispatch(actionDisabledAnswers(false));
+  }, [answers, dispatch]);
   function createIndex() {
     const indexArray = [];
     let counter = 0;
@@ -21,7 +24,7 @@ export default function ButtonAnswers(props) {
         indexArray.push(`wrong-answer-${counter}`);
         counter += 1;
       } else {
-        indexArray.push('correct-answer');
+        indexArray.push(correcAnswer);
       }
     });
     return indexArray;
@@ -29,10 +32,21 @@ export default function ButtonAnswers(props) {
 
   const indexArray = createIndex();
 
-  function setColor() {
+  function setScore(answer) {
+    const difficultyValue = { hard: 3, medium: 2, easy: 1 };
+    if (answer === correct) {
+      console.log(correcAnswer);
+      const magicNumber10 = 10;
+      const score = magicNumber10 + (difficultyValue[difficulty] * time);
+      dispatch(actionAddScore(score));
+    }
+  }
+
+  function setColor(e) {
+    setScore(e.target.id);
     dispatch(actionTimerRuning(false));
     const buttonColor = indexArray.map((element) => {
-      if (element === 'correct-answer') {
+      if (element === correcAnswer) {
         return 'green';
       }
       return 'red';
@@ -40,7 +54,23 @@ export default function ButtonAnswers(props) {
     setClassArray(buttonColor);
     setHasClick(true);
     clearInterval(timerId);
+    dispatch(actionDisabledAnswers(true));
   }
+
+  useEffect(() => {
+    if (time < 1 && timerRunning === true) {
+      dispatch(actionTimerRuning(false));
+      const buttonColor = indexArray.map((element) => {
+        if (element !== correcAnswer) {
+          return 'red';
+        }
+        return 'green';
+      });
+      setClassArray(buttonColor);
+      setHasClick(true);
+      clearInterval(timerId);
+    }
+  }, [time, timerRunning, dispatch, indexArray, setHasClick, timerId]);
 
   return (
     <div data-testid="answer-options">
@@ -50,9 +80,10 @@ export default function ButtonAnswers(props) {
             key={ ind }
             type="button"
             data-testid={ indexArray[ind] }
-            onClick={ () => setColor() }
+            onClick={ (e) => setColor(e) }
             className={ classArray[ind] }
             disabled={ disabledBtn }
+            id={ element }
           >
             { element }
           </button>
