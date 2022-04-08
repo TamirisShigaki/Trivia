@@ -1,4 +1,4 @@
-/* import React from 'react';
+import React from 'react';
 
 export default function Feedback() {
   const { name, score, gravatarImage } = useSelector((state) => state.player);
@@ -11,12 +11,5 @@ export default function Feedback() {
       />
       <span data-testid="header-player-name">{name}</span>
       <span data-testid="header-score">{score}</span>
-      <button
-        type="button"
-        data-testeid="btn-next"
-      >
-        Next Question
-      </button>
     </header>);
 }
- */

@@ -63,8 +63,5 @@ export default function ButtonAnswers(props) {
 }
 
 ButtonAnswers.propTypes = {
-  answers: PropTypes.arrayOf(PropTypes.string),
-  correctAnswers: PropTypes.string,
+  setHasClick: PropTypes.func,
 }.isRequired;
-
-// https://javascript.info/task/shuffle  = MathRandom()

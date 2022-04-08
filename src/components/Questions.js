@@ -20,7 +20,7 @@ export default function Questions() {
   }, [dispatch]);
 
   useEffect(() => {
-    const magicNumber = 3;
+    const magicNumber = 3; // verifica se o token está valido
     if (questionsReducer.response_code === magicNumber) {
       dispatch(getToken());
     } else {
@@ -43,7 +43,14 @@ export default function Questions() {
     dispatch(actionSetTimerId(undefined));
   }
 
-  function teste() {
+  useEffect(() => {
+    if (question && question.category) {
+      dispatch(actionAnswers([...question.incorrect_answers,
+        question.correct_answer], question.correct_answer));
+    }
+  }, [question, dispatch]);
+
+  /*   function teste() {
     if (question) {
       if (question.category) {
         return true;
@@ -51,16 +58,11 @@ export default function Questions() {
       return false;
     }
     return false;
-  }
-  useEffect(() => {
-    if (question && question.category) {
-      dispatch(actionAnswers([...question.incorrect_answers,
-        question.correct_answer], question.correct_answer));
-    }
-  }, [question, dispatch]);
+  } */
+
   return (
     <div>
-      {teste() && (
+      {question && question.category && (
         <>
           <Timer />
           <h4
