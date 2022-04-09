@@ -94,7 +94,7 @@ export default function Questions() {
       }
       {
         (hasClick && position === magicNumber5) && (
-          <Link to="/settings">
+          <Link to="/feedback">
             <button
               type="button"
               data-testid="btn-next"
