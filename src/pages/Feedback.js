@@ -1,19 +1,30 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import GameHeader from '../components/GameHeader';
 
 export default function Feedback() {
-  const { name, score, gravatarImage } = useSelector((state) => state.player);
+  const { assertions, score, name, gravatarImage } = useSelector((state) => state.player);
 
-  // function handleBtnRanking() {
-  //   const { history: { push } } = props;
-  //   push('/ranking');
-  // }
+  /* [
+  { name: nome-da-pessoa, score: 10, picture: url-da-foto-no-gravatar }
+] */
 
+  function saveLocalStorage() {
+    console.log('aqui');
+    if (localStorage.ranking) {
+      const aux = JSON.parse(localStorage.ranking);
+      aux.push({ name, score, picture: gravatarImage });
+      localStorage.ranking = JSON.stringify(aux);
+    } else {
+      localStorage.ranking = JSON.stringify([{ name, score, picture: gravatarImage }]);
+    }
+  }
+  const magicNumber3 = 3;
   return (
-    <div data-testid="feedback-text">
-      <header>
+    <div>
+      <GameHeader />
+      {/* <header>
         <img
           data-testid="header-profile-picture"
           src={ gravatarImage }
@@ -21,17 +32,25 @@ export default function Feedback() {
         />
         <span data-testid="header-player-name">{name}</span>
         <span data-testid="header-score">{score}</span>
-      </header>
-
+      </header> */}
+      <h2 data-testid="feedback-text">
+        {assertions >= magicNumber3
+          ? 'Well Done!' : 'Could be better...'}
+      </h2>
       <section>
-        <h2>
+        <h3>
           Placar final:
-        </h2>
-        <p data-testid="feedback-total-score">{}</p>
+          {' '}
+          <span data-testid="feedback-total-score">{Number(score)}</span>
+          {' '}
+          pontos
+        </h3>
         <h3>
           Total de perguntas corretas:
+          {' '}
+          <span data-testid="feedback-total-question">{assertions}</span>
+          {' '}
         </h3>
-        <p data-testid="feedback-total-question">{}</p>
       </section>
       <section />
 
@@ -39,7 +58,7 @@ export default function Feedback() {
         <button
           type="button"
           data-testid="btn-ranking"
-        // onClick={ handleBtnRanking }
+          onClick={ saveLocalStorage }
         >
           Ranking
         </button>
@@ -58,9 +77,3 @@ export default function Feedback() {
     </div>
   );
 }
-
-// Feedback.propTypes = {
-//   history: PropTypes.shape({
-//     push: PropTypes.func,
-//   }),
-// }.isRequired;

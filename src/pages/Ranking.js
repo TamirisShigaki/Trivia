@@ -1,22 +1,24 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 export default function Ranking() {
-//   function handleBtnLogin() {
-//     const { history: { push } } = props;
-//     push('/');
-//   }
-
+  const ranking = JSON.parse(localStorage.ranking);
   return (
     <div>
       <h1 data-testid="ranking-title">Ranking</h1>
-
+      {
+        ranking.map((item, index) => (
+          <div key={ index }>
+            <span data-testid={ `player-name-${index}` }>{item.name}</span>
+            <span data-testid={ `player-score-${index}` }>{item.score}</span>
+            <img src={ item.picture } alt="player" />
+          </div>
+        ))
+      }
       <Link to="/">
         <button
           type="button"
           data-testid="btn-go-home"
-        // onClick={ handleBtnLogin }
         >
           Jogar novamente
         </button>
@@ -24,9 +26,3 @@ export default function Ranking() {
     </div>
   );
 }
-
-// Ranking.propTypes = {
-//   history: PropTypes.shape({
-//     push: PropTypes.func,
-//   }),
-// }.isRequired;

@@ -35,7 +35,6 @@ export default function ButtonAnswers(props) {
   function setScore(answer) {
     const difficultyValue = { hard: 3, medium: 2, easy: 1 };
     if (answer === correct) {
-      console.log(correcAnswer);
       const magicNumber10 = 10;
       const score = magicNumber10 + (difficultyValue[difficulty] * time);
       dispatch(actionAddScore(score));
