@@ -1,7 +1,7 @@
 const INITIAL_STATE = {
   name: '',
-  assertions: '',
   score: 0,
+  assertions: 0,
   gravatarEmail: '',
   gravatarImage: '',
 };
@@ -16,8 +16,11 @@ const player = (state = INITIAL_STATE, action) => {
     };
   case 'GRAVATAR_IMAGE':
     return { ...state, gravatarImage: action.value };
-  case 'ADD_SCORE':
-    return { ...state, score: state.score + action.value };
+  case 'ADD_SCORE': {
+    return { ...state,
+      score: state.score + action.value,
+      assertions: state.assertions + 1 };
+  }
   default:
     return state;
   }
